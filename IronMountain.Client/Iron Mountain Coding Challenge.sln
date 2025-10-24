@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronMountain.Client", "IronMountain.Client.csproj", "{D4C6373E-E3F6-488E-ACB1-2991A58529AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronMountain.Tests", "..\IronMountain.Tests\IronMountain.Tests.csproj", "{C0A1BB98-FFA4-42D8-8C8B-7403E3E8ED2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4C6373E-E3F6-488E-ACB1-2991A58529AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C6373E-E3F6-488E-ACB1-2991A58529AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C6373E-E3F6-488E-ACB1-2991A58529AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C6373E-E3F6-488E-ACB1-2991A58529AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A1BB98-FFA4-42D8-8C8B-7403E3E8ED2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A1BB98-FFA4-42D8-8C8B-7403E3E8ED2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A1BB98-FFA4-42D8-8C8B-7403E3E8ED2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A1BB98-FFA4-42D8-8C8B-7403E3E8ED2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFACF48C-B6F6-4159-A6FF-D22F52987DB7}
+	EndGlobalSection
+EndGlobal
