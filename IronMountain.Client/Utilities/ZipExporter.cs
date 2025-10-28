@@ -1,5 +1,6 @@
 ﻿
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -44,9 +45,12 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     ZipFilePath = zipFilePath
                 };
 
+                Log.Information($"Files have been zipped to \"{zipFilePath}\".");
+
                 return zipFileDto;
             }
             catch (Exception ex) {
+                Log.Error("Error while exporting zip file: " + ex.Message, ex);
                 throw new ApplicationException("Error while exporting zip file: " + ex.Message, ex);
             }
         }

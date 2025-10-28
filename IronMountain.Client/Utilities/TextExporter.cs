@@ -1,5 +1,6 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,8 +14,10 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
     {
         public static TextFileDto ExportEmployeesToTextFile(List<Employee> employees)
         {
-            if (employees == null || employees.Count == 0)
+            if (employees == null || employees.Count == 0) {
+                Log.Error("No employee records found to export.");
                 throw new ApplicationException("No employee records found to export.");
+            }
 
             string outputPath = ConfigurationManager.AppSettings["TxtOutputPath"];
             if (!Directory.Exists(outputPath))
@@ -42,10 +45,13 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     TxtFilePath = txtFilePath
                 };
 
+                Log.Information($"Employees have been exported to \"{txtFilePath}\" in text file");
+
                 return txtFileDto;
             }
             catch (Exception ex)
             {
+                Log.Error("Error while exporting text file: " + ex.Message, ex);
                 throw new ApplicationException("Error while exporting text file: " + ex.Message, ex);
             }
         }

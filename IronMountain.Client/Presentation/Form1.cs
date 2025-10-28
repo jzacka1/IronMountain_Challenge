@@ -1,7 +1,9 @@
-﻿using Iron_Mountain_Coding_Challenge.Models;
+﻿using DocumentFormat.OpenXml;
+using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Repository;
 using Iron_Mountain_Coding_Challenge.Utilities;
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,11 +21,6 @@ namespace Iron_Mountain_Coding_Challenge
             _employeeRepository = employeeRepository;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         private void employeeIdTxtBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -36,7 +33,7 @@ namespace Iron_Mountain_Coding_Challenge
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true; // Block non-numeric input
+                e.Handled = true;
             }
         }
 
@@ -65,12 +62,14 @@ namespace Iron_Mountain_Coding_Challenge
                 if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
                     MessageBox.Show("Employee Id required!");
+                    Log.Information("Employee Id required!");
                     return;
                 }
 
                 if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
                     MessageBox.Show("Last Name required!");
+                    Log.Information("Last Name required!");
                     return;
                 }
 
@@ -79,12 +78,14 @@ namespace Iron_Mountain_Coding_Challenge
                 if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
                 {
                     MessageBox.Show("DOB required!");
+                    Log.Information("DOB required!");
                     return;
                 }
 
                 if(dob > DateTime.Today)
                 {
                     MessageBox.Show("DOB can not be greated than today!");
+                    Log.Information("DOB can not be greated than today!");
                     return;
                 }
 
@@ -101,11 +102,13 @@ namespace Iron_Mountain_Coding_Challenge
                 _employeeRepository.Save();
 
                 MessageBox.Show("Employee saved successfully!");
+                Log.Information("Employee saved successfully!");
                 ClearFields();
 
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
+                Log.Error($"Error: {ex.Message}");
             }
         }
 
@@ -118,6 +121,7 @@ namespace Iron_Mountain_Coding_Challenge
                 if (employees.Count == 0)
                 {
                     MessageBox.Show("No employees found in the database to export.");
+                    Log.Information("No employees found in the database to export.");
                     return;
                 }
 
@@ -130,10 +134,12 @@ namespace Iron_Mountain_Coding_Challenge
                 ZipFileDto zipFileDto = ZipExporter.ExportFilesToZipFolder(new List<TextFileDto>() { txtFileDto });
 
                 MessageBox.Show($"Text file exported and compressed successfully!\n\nLocation:\n{zipFileDto.ZipFilePath}");
+                Log.Information($"Text file exported and compressed successfully!\n\nLocation:\n{zipFileDto.ZipFilePath}");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error exporting text file: " + ex.Message);
+                Log.Error("Error exporting text file: " + ex.Message);
             }
         }
 
@@ -146,16 +152,19 @@ namespace Iron_Mountain_Coding_Challenge
                 if (employees == null)
                 {
                     MessageBox.Show("No employees found.");
+                    Log.Information("No employees found.");
                     return;
                 }
 
                 string xmlPath = XmlExporter.ExportEmployeesToXml(new List<Employee>(employees));
 
                 MessageBox.Show($"XML file created successfully:\n{xmlPath}");
+                Log.Information($"XML file created successfully:\n{xmlPath}");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error exporting XML: " + ex.Message);
+                Log.Error("Error exporting XML: " + ex.Message);
             }
         }
 
@@ -169,6 +178,7 @@ namespace Iron_Mountain_Coding_Challenge
                 parsedDate <= DateTime.Today)
             {
                 MessageBox.Show("Please enter a valid date in MMddyyyy format.");
+                Log.Information("Please enter a valid date in MMddyyyy format.");
             }
         }
 

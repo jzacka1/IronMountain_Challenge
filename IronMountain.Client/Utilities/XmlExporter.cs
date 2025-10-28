@@ -1,4 +1,5 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -57,10 +58,13 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     serializer.Serialize(writer, wrapper);
                 }
 
+                Log.Information($"\"{fullPath}\" has been exported");
+
                 return fullPath;
             }
             catch (Exception ex)
             {
+                Log.Error("Failed to export XML: " + ex.Message, ex);
                 throw new ApplicationException("Failed to export XML: " + ex.Message, ex);
             }
         }

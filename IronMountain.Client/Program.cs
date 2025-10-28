@@ -1,4 +1,5 @@
 ﻿using Iron_Mountain_Coding_Challenge.Repository;
+using Serilog;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -15,6 +16,12 @@ namespace Iron_Mountain_Coding_Challenge
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
 
             var container = new UnityContainer();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
