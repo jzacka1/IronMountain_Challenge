@@ -64,11 +64,13 @@ namespace Iron_Mountain_Coding_Challenge
                 this.ActiveControl = null;
                 if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
+                    MessageBox.Show("Employee Id required!");
                     return;
                 }
 
                 if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
+                    MessageBox.Show("Last Name required!");
                     return;
                 }
 
@@ -76,11 +78,13 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
                 {
+                    MessageBox.Show("DOB required!");
                     return;
                 }
 
                 if(dob > DateTime.Today)
                 {
+                    MessageBox.Show("DOB can not be greated than today!");
                     return;
                 }
 
