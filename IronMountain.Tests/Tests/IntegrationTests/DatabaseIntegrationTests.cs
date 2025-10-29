@@ -29,7 +29,7 @@ namespace IronMountain.Tests.IntegrationTests
             {
                 var emp = new Employee
                 {
-                    EmployeeID = 1,
+                    EmployeeID = "00000001",
                     FirstName = "Alice",
                     LastName = "Smith",
                     DOB = new System.DateTime(1988, 2, 12)
@@ -39,7 +39,7 @@ namespace IronMountain.Tests.IntegrationTests
                 _repository.Save();
 
                 var test = _repository.GetAll();
-                var result = _repository.GetAll().FirstOrDefault(e => e.EmployeeID == 2);
+                var result = _repository.GetAll().FirstOrDefault(e => e.EmployeeID == "00000002");
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.LastName, Is.EqualTo("Smith"));
             }
@@ -51,7 +51,7 @@ namespace IronMountain.Tests.IntegrationTests
             // Arrange
             var employee = new Employee
             {
-                EmployeeID = 2,
+                EmployeeID = "00000002",
                 FirstName = "Alex",
                 LastName = "Johnson",
                 DOB = new System.DateTime(1989, 3, 10)

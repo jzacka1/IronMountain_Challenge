@@ -139,6 +139,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202510142053583_InitialCreate.cs" />
+    <Compile Include="Migrations\202510142053583_InitialCreate.Designer.cs">
+      <DependentUpon>202510142053583_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510290702240_UpdateEmployeeTable.cs" />
+    <Compile Include="Migrations\202510290702240_UpdateEmployeeTable.Designer.cs">
+      <DependentUpon>202510290702240_UpdateEmployeeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Presentation\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +165,12 @@
     <Compile Include="Utilities\TextExporter.cs" />
     <Compile Include="Utilities\XmlExporter.cs" />
     <Compile Include="Utilities\ZipExporter.cs" />
+    <EmbeddedResource Include="Migrations\202510142053583_InitialCreate.resx">
+      <DependentUpon>202510142053583_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510290702240_UpdateEmployeeTable.resx">
+      <DependentUpon>202510290702240_UpdateEmployeeTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,10 +203,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('packages\Serilog.4.3.0\build\Serilog.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Serilog.4.3.0\build\Serilog.targets'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('packages\Serilog.4.3.0\build\Serilog.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Serilog.4.3.0\build\Serilog.targets'))" />
   </Target>
-  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <Import Project="packages\Serilog.4.3.0\build\Serilog.targets" Condition="Exists('packages\Serilog.4.3.0\build\Serilog.targets')" />
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
 </Project>

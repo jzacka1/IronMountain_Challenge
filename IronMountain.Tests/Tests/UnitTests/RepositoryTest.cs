@@ -21,7 +21,7 @@ namespace IronMountain.Tests.UnitTests
             _mockRepo = new Mock<IEmployeeRepository>();
             _mockRepo.Setup(r => r.GetAll()).Returns(new List<Employee>
             {
-                new Employee { EmployeeID = 4, FirstName = "John", LastName = "Doe" }
+                new Employee { EmployeeID = "00000004", FirstName = "John", LastName = "Doe" }
             });
         }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.props" Condition="Exists('..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.props')" />
   <Import Project="..\IronMountain.Client\packages\Microsoft.Testing.Extensions.Telemetry.1.9.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" Condition="Exists('..\IronMountain.Client\packages\Microsoft.Testing.Extensions.Telemetry.1.9.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" />
   <Import Project="..\IronMountain.Client\packages\Microsoft.Testing.Platform.MSBuild.1.9.0\build\Microsoft.Testing.Platform.MSBuild.props" Condition="Exists('..\IronMountain.Client\packages\Microsoft.Testing.Platform.MSBuild.1.9.0\build\Microsoft.Testing.Platform.MSBuild.props')" />
@@ -45,10 +46,10 @@
       <HintPath>..\IronMountain.Client\packages\Effort.EF6.2.2.17\lib\net45\Effort.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\IronMountain.Client\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\IronMountain.Client\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\IronMountain.Client\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\IronMountain.Client\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\IronMountain.Client\packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
@@ -162,8 +163,11 @@
     <Error Condition="!Exists('..\IronMountain.Client\packages\Microsoft.Testing.Extensions.Telemetry.1.9.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', '..\IronMountain.Client\packages\Microsoft.Testing.Extensions.Telemetry.1.9.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
     <Error Condition="!Exists('..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\IronMountain.Client\packages\Microsoft.Testing.Platform.1.9.0\build\netstandard2.0\Microsoft.Testing.Platform.targets" Condition="Exists('..\IronMountain.Client\packages\Microsoft.Testing.Platform.1.9.0\build\netstandard2.0\Microsoft.Testing.Platform.targets')" />
   <Import Project="..\IronMountain.Client\packages\Microsoft.Testing.Platform.MSBuild.1.9.0\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('..\IronMountain.Client\packages\Microsoft.Testing.Platform.MSBuild.1.9.0\build\Microsoft.Testing.Platform.MSBuild.targets')" />
   <Import Project="..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.targets" Condition="Exists('..\IronMountain.Client\packages\NUnit3TestAdapter.5.2.0\build\net462\NUnit3TestAdapter.targets')" />
+  <Import Project="..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\IronMountain.Client\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
 </Project>

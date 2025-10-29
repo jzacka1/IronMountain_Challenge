@@ -21,7 +21,7 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
         public class EmployeeXml
         {
             [XmlAttribute("ID")]
-            public int EmployeeID { get; set; }
+            public string EmployeeID { get; set; }
 
             public string LastName { get; set; }
             public string FirstName { get; set; }

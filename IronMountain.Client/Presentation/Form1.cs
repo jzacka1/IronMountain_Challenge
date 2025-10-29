@@ -66,6 +66,15 @@ namespace Iron_Mountain_Coding_Challenge
                     return;
                 }
 
+                // Reformat to 00000000
+                if (employeeIdTxtBox.Text.Length < 8)
+                {
+                    int num = Convert.ToInt32(employeeIdTxtBox.Text);
+                    string id = num.ToString("00000000");
+
+                    employeeIdTxtBox.Text = id;
+                }
+
                 if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
                     MessageBox.Show("Last Name required!");
@@ -91,7 +100,7 @@ namespace Iron_Mountain_Coding_Challenge
 
                 var employee = new Employee
                 {
-                    EmployeeID = Int32.Parse(employeeIdTxtBox.Text),
+                    EmployeeID = employeeIdTxtBox.Text,
                     FirstName = firstNameTxtBox.Text.Trim(),
                     LastName = lastNameTxtBox.Text.Trim(),
                     DOB = dob
