@@ -1,9 +1,7 @@
-
-/* CHANGE THE NAME OF THE DATABASE */
 USE [IronMontainDb]
 GO
 
-/****** Object:  Table [dbo].[Employees]    Script Date: 10/15/2025 12:22:08 AM ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 10/29/2025 4:33:42 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,10 +9,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Employees](
-	[EmployeeID] [int] IDENTITY(1,1) NOT NULL,
-	[FirstName] [nvarchar](30) NULL,
+	[EmployeeID] [nvarchar](8) NOT NULL,
+	[FirstName] [nvarchar](30) NOT NULL,
 	[LastName] [nvarchar](30) NULL,
-	[DOB] [datetime] NOT NULL,
+	[DOB] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_dbo.Employees] PRIMARY KEY CLUSTERED 
 (
 	[EmployeeID] ASC
