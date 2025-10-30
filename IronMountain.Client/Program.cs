@@ -25,6 +25,8 @@ namespace Iron_Mountain_Coding_Challenge
 
             var container = new UnityContainer();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
+            container.RegisterType<IMessageProvider, MessageProvider>(TypeLifetime.Singleton);
+            container.RegisterType<ILoggingService, LoggingService>(TypeLifetime.Singleton);
             var mainForm = container.Resolve<Form1>();
 
             Application.Run(mainForm);
