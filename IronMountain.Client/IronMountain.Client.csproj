@@ -151,7 +151,7 @@
       <DependentUpon>202510290702240_UpdateEmployeeTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationMessages.cs" />
+    <Compile Include="Models\AppMessages.cs" />
     <Compile Include="Presentation\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,11 +165,10 @@
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="Repository\IEmployeeRepository.cs" />
     <Compile Include="Repository\ILoggingService.cs" />
-    <Compile Include="Repository\IMessageProvider.cs" />
     <Compile Include="Repository\LoggingService.cs" />
-    <Compile Include="Repository\MessageProvider.cs" />
     <Compile Include="Utilities\DTO\TextFileDto.cs" />
     <Compile Include="Utilities\DTO\ZipFileDto.cs" />
+    <Compile Include="Utilities\Helpers\AppConfig.cs" />
     <Compile Include="Utilities\TextExporter.cs" />
     <Compile Include="Utilities\XmlExporter.cs" />
     <Compile Include="Utilities\ZipExporter.cs" />
@@ -201,7 +200,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Utilities\POCO\messages.json" />
+    <None Include="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

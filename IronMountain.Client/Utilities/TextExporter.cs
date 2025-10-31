@@ -1,5 +1,6 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
         public static TextFileDto ExportEmployeesToTextFile(List<Employee> employees)
         {
             if (employees == null || employees.Count == 0) {
-                Log.Error("No employee records found to export.");
-                throw new ApplicationException("No employee records found to export.");
+                Log.Error(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
+                throw new ApplicationException(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
             }
 
             string outputPath = ConfigurationManager.AppSettings["TxtOutputPath"];
@@ -45,14 +46,14 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     TxtFilePath = txtFilePath
                 };
 
-                Log.Information($"Employees have been exported to \"{txtFilePath}\" in text file");
+                Log.Information($"{AppConfig.AppMessages.Messages.Info.TextFileExported}{txtFilePath}");
 
                 return txtFileDto;
             }
             catch (Exception ex)
             {
-                Log.Error("Error while exporting text file: " + ex.Message, ex);
-                throw new ApplicationException("Error while exporting text file: " + ex.Message, ex);
+                Log.Error($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
+                throw new ApplicationException($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}\n\n{ex.Message}");
             }
         }
     }

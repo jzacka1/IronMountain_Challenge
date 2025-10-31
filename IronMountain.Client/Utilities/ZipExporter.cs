@@ -1,5 +1,6 @@
 ﻿
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,13 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     ZipFilePath = zipFilePath
                 };
 
-                Log.Information($"Files have been zipped to \"{zipFilePath}\".");
+                Log.Information($"{AppConfig.AppMessages.Messages.Info.FilesZipped}{zipFilePath}");
 
                 return zipFileDto;
             }
             catch (Exception ex) {
-                Log.Error("Error while exporting zip file: " + ex.Message, ex);
-                throw new ApplicationException("Error while exporting zip file: " + ex.Message, ex);
+                Log.Error($"{AppConfig.AppMessages.Messages.Errors.ZippedFolderExportFailed}{ex.Message}");
+                throw new ApplicationException($"{AppConfig.AppMessages.Messages.Errors.ZippedFolderExportFailed}{ex.Message}");
             }
         }
     }

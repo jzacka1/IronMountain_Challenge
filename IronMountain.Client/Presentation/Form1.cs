@@ -4,6 +4,7 @@ using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Repository;
 using Iron_Mountain_Coding_Challenge.Utilities;
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
+using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,16 +16,13 @@ namespace Iron_Mountain_Coding_Challenge
     public partial class Form1 : Form
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly IMessageProvider _messageProvider;
         private readonly ILoggingService _logger;
 
-        public Form1(IEmployeeRepository employeeRepository, 
-                    IMessageProvider messageProvider, 
-                    ILoggingService logger)
+        public Form1(IEmployeeRepository employeeRepository,
+            ILoggingService logger)
         {
             InitializeComponent();
             _employeeRepository = employeeRepository;
-            _messageProvider = messageProvider;
             _logger = logger;
         }
 
@@ -68,8 +66,8 @@ namespace Iron_Mountain_Coding_Challenge
                 this.ActiveControl = null;
                 if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.EmployeeIdRequired);
-                    _logger.Error(_messageProvider.Messages.Errors.EmployeeIdRequired);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
                     return;
                 }
 
@@ -84,8 +82,8 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.LastNameRequired);
-                    _logger.Error(_messageProvider.Messages.Errors.LastNameRequired);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
                     return;
                 }
 
@@ -93,15 +91,15 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.DOBRequired);
-                    _logger.Error(_messageProvider.Messages.Errors.DOBRequired);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBRequired);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBRequired);
                     return;
                 }
 
                 if(dob > DateTime.Today)
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.DOBGreaterThanToday);
-                    _logger.Error(_messageProvider.Messages.Errors.DOBGreaterThanToday);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
                     return;
                 }
 
@@ -117,8 +115,8 @@ namespace Iron_Mountain_Coding_Challenge
                 _employeeRepository.Add(employee);
                 _employeeRepository.Save();
 
-                MessageBox.Show(_messageProvider.Messages.Info.EmployeeSaved);
-                _logger.Info(_messageProvider.Messages.Info.EmployeeSaved);
+                MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
+                _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
                 ClearFields();
 
             }
@@ -136,8 +134,8 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (employees.Count == 0)
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.EmployeesNotFound);
-                    _logger.Error(_messageProvider.Messages.Errors.EmployeesNotFound);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                     return;
                 }
 
@@ -147,13 +145,13 @@ namespace Iron_Mountain_Coding_Challenge
                 //Put new text file into folder
                 ZipFileDto zipFileDto = ZipExporter.ExportFilesToZipFolder(new List<TextFileDto>() { txtFileDto });
 
-                MessageBox.Show($"{_messageProvider.Messages.Info.TextFileExported}{zipFileDto.ZipFilePath}");
-                _logger.Info($"{_messageProvider.Messages.Info.TextFileExported}{zipFileDto.ZipFilePath}");
+                MessageBox.Show($"{AppConfig.AppMessages.Messages.Info.TextFileExported}{zipFileDto.ZipFilePath}");
+                _logger.Info($"{AppConfig.AppMessages.Messages.Info.TextFileExported}{zipFileDto.ZipFilePath}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{_messageProvider.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
-                _logger.Error($"{_messageProvider.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
+                MessageBox.Show($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
+                _logger.Error($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
             }
         }
 
@@ -165,20 +163,20 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (employees == null)
                 {
-                    MessageBox.Show(_messageProvider.Messages.Errors.EmployeesNotFound);
-                    _logger.Error(_messageProvider.Messages.Errors.EmployeesNotFound);
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
+                    _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                     return;
                 }
 
                 string xmlPath = XmlExporter.ExportEmployeesToXml(new List<Employee>(employees));
 
-                MessageBox.Show($"{_messageProvider.Messages.Info.XMLFileCreated}{xmlPath}");
-                _logger.Info($"{_messageProvider.Messages.Info.XMLFileCreated}{xmlPath}");
+                MessageBox.Show($"{AppConfig.AppMessages.Messages.Info.XMLFileCreated}{xmlPath}");
+                _logger.Info($"{AppConfig.AppMessages.Messages.Info.XMLFileCreated}{xmlPath}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{_messageProvider.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
-                _logger.Error($"{_messageProvider.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
+                MessageBox.Show($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
+                _logger.Error($"{AppConfig.AppMessages.Messages.Errors.ErrorExportingTextFile}{ex.Message}");
             }
         }
 
@@ -191,8 +189,8 @@ namespace Iron_Mountain_Coding_Challenge
                 out parsedDate) &&
                 parsedDate <= DateTime.Today)
             {
-                MessageBox.Show($"{_messageProvider.Messages.Errors.InvalidDateFormat}");
-                _logger.Error($"{_messageProvider.Messages.Errors.InvalidDateFormat}");
+                MessageBox.Show($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
+                _logger.Error($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
             }
         }
 

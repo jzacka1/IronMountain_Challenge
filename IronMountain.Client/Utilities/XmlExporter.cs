@@ -1,4 +1,5 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
+using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -58,14 +59,15 @@ namespace Iron_Mountain_Coding_Challenge.Utilities
                     serializer.Serialize(writer, wrapper);
                 }
 
-                Log.Information($"\"{fullPath}\" has been exported");
+                //Log.Information($"\"{fullPath}\" has been exported");
+                Log.Information($"{AppConfig.AppMessages.Messages.Info.XMLFileExported}{fullPath}");
 
                 return fullPath;
             }
             catch (Exception ex)
             {
-                Log.Error("Failed to export XML: " + ex.Message, ex);
-                throw new ApplicationException("Failed to export XML: " + ex.Message, ex);
+                Log.Error($"{AppConfig.AppMessages.Messages.Errors.XMLFileExportFailed}{ ex.Message}");
+                throw new ApplicationException($"{AppConfig.AppMessages.Messages.Errors.XMLFileExportFailed}{ex.Message}");
             }
         }
     }
