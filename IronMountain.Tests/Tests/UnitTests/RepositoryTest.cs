@@ -1,5 +1,6 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Repository;
+using Iron_Mountain_Coding_Challenge.Services;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -28,7 +29,8 @@ namespace IronMountain.Tests.UnitTests
 
             _mockRepo = new Mock<IEmployeeRepository>();
             _mockRepo.Setup(r => r.GetAll()).Returns(list);
-            _mockRepo.Setup(r => r.SearchByNlp(It.IsAny<string>())).Returns(list);
+            //_mockRepo.Setup(r => r.SearchByNlp(It.IsAny<string>()))
+            //    .ReturnsAsync(list);
         }
 
         [Test]
@@ -42,12 +44,27 @@ namespace IronMountain.Tests.UnitTests
         [Test]
         public async Task SearchByNlp_Should_Filter_By_MinAge()
         {
+            // Arrange
+            dynamic filters = new System.Dynamic.ExpandoObject();
+            filters.AgeMin = 40;
+            filters.NameContains = "John";
+
+            var expectedEmployees = new List<Employee>
+            {
+                new Employee { FirstName = "John", LastName = "Doe" },
+                new Employee { FirstName = "Johnny", LastName = "Smith" }
+            };
+
+            _mockRepo.Setup(r => r.SearchByNlp(It.IsAny<object>()))
+                .ReturnsAsync(expectedEmployees);
+
             // Act
-            var results = _mockRepo.Object.SearchByNlp("older than 25").ToList();
+            //var results = _mockRepo.Object.SearchByNlp(filters).ToList();
+            var result = await _mockRepo.Object.SearchByNlp(filters);
 
             // Assert
-            Assert.That(3, Is.EqualTo(results.Count));
-            Assert.That("Jim", Is.EqualTo(results.First().FirstName));
+            Assert.That(2, Is.EqualTo(result.Count));
+            Assert.That("John", Is.EqualTo(result[0].FirstName));
         }
     }
 }

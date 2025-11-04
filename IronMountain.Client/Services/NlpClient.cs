@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Iron_Mountain_Coding_Challenge.Services
 {
-    public class NlpClient
+    public class NlpClient : INlpClient
     {
         private readonly HttpClient _client;
 
@@ -28,8 +28,7 @@ namespace Iron_Mountain_Coding_Challenge.Services
             var response = await _client.PostAsync("http://localhost:8000/parse", content);
             var result = await response.Content.ReadAsStringAsync();
 
-            dynamic data = JsonConvert.DeserializeObject(result);
-            return data.filters;
+            return JsonConvert.DeserializeObject<dynamic>(result).filters;
         }
     }
 }

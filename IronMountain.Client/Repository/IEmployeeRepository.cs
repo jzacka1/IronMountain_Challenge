@@ -9,6 +9,6 @@ namespace Iron_Mountain_Coding_Challenge.Repository
         IEnumerable<Employee> GetAll();
         void Add(Employee employee);
         void Save();
-        IEnumerable<Employee> SearchByNlp(string query);
+        Task<IEnumerable<Employee>> SearchByNlp(dynamic filters);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Iron_Mountain_Coding_Challenge.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Iron_Mountain_Coding_Challenge.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,25 +36,29 @@ namespace Iron_Mountain_Coding_Challenge.Repository
             _context.SaveChanges();
         }
 
-        public IEnumerable<Employee> SearchByNlp(string query)
+        public async Task<IEnumerable<Employee>> SearchByNlp(dynamic filters)
         {
-            var terms = query.ToLower().Split(' ');
+            var query = _context.Employee.AsQueryable();
 
-            IQueryable<Employee> q = _context.Employee;
-
-            if (terms.Contains("older") || terms.Any(t => t.Contains("age")))
+            if (filters.AgeMin != null)
             {
-                // Example: find minimum age number in text
-                var age = terms.Where(t => int.TryParse(t, out _))
-                               .Select(int.Parse)
-                               .DefaultIfEmpty(0)
-                               .First();
-
-                var minDob = DateTime.Now.AddYears(-age);
-                q = q.Where(e => e.DOB <= minDob);
+                DateTime dobLimit = DateTime.Today.AddYears(-(int)filters.AgeMin);
+                query = query.Where(e => e.DOB <= dobLimit);
             }
 
-            return q.ToList();
+            if (filters.AgeMax != null)
+            {
+                DateTime dobLimit = DateTime.Today.AddYears(-(int)filters.AgeMax);
+                query = query.Where(e => e.DOB >= dobLimit);
+            }
+
+            if (filters.NameContains != null)
+            {
+                string name = (string)filters.NameContains;
+                query = query.Where(e => e.FirstName.Contains(name) || e.LastName.Contains(name));
+            }
+
+            return await query.ToListAsync();
         }
     }
 }
