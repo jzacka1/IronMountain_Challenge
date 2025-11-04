@@ -38,8 +38,7 @@ namespace IronMountain.Tests.IntegrationTests
                 _repository.Add(emp);
                 _repository.Save();
 
-                var test = _repository.GetAll();
-                var result = _repository.GetAll().FirstOrDefault(e => e.EmployeeID == "00000002");
+                var result = _repository.GetAll().FirstOrDefault(e => e.EmployeeID == "00000001");
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.LastName, Is.EqualTo("Smith"));
             }

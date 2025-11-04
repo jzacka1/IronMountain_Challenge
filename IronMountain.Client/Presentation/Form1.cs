@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.EMMA;
 using Iron_Mountain_Coding_Challenge.Models;
 using Iron_Mountain_Coding_Challenge.Repository;
+using Iron_Mountain_Coding_Challenge.Services;
 using Iron_Mountain_Coding_Challenge.Utilities;
 using Iron_Mountain_Coding_Challenge.Utilities.DTO;
 using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
@@ -205,6 +206,17 @@ namespace Iron_Mountain_Coding_Challenge
         private void Form1_Click(object sender, EventArgs e)
         {
             this.ActiveControl = null;
+        }
+
+        private async void naturalLanguageSearchBtn_Click(object sender, EventArgs e)
+        {
+            var nlp = new NlpClient();
+
+            var filters = await nlp.ParseQuery(txtSrchPrmpt.Text);
+
+            var results = await _employeeRepository.SearchByNlp(filters);
+
+            dgvResults.DataSource = results;
         }
     }
 }

@@ -45,11 +45,18 @@
             this.createTxtFileBtn = new System.Windows.Forms.Button();
             this.createXmlFileBtn = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textPromptPanel = new System.Windows.Forms.Panel();
+            this.txtSrchPrmpt = new System.Windows.Forms.RichTextBox();
+            this.textSearchPromptLabel = new System.Windows.Forms.Label();
+            this.naturalLanguageSearchBtn = new System.Windows.Forms.Button();
+            this.dgvResults = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.textPromptPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.SuspendLayout();
             // 
             // employeeIdTxtBox
@@ -195,11 +202,60 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // textPromptPanel
+            // 
+            this.textPromptPanel.Controls.Add(this.naturalLanguageSearchBtn);
+            this.textPromptPanel.Controls.Add(this.textSearchPromptLabel);
+            this.textPromptPanel.Controls.Add(this.txtSrchPrmpt);
+            this.textPromptPanel.Location = new System.Drawing.Point(519, 238);
+            this.textPromptPanel.Name = "textPromptPanel";
+            this.textPromptPanel.Size = new System.Drawing.Size(354, 198);
+            this.textPromptPanel.TabIndex = 9;
+            // 
+            // txtSrchPrmpt
+            // 
+            this.txtSrchPrmpt.Location = new System.Drawing.Point(27, 39);
+            this.txtSrchPrmpt.Name = "txtSrchPrmpt";
+            this.txtSrchPrmpt.Size = new System.Drawing.Size(324, 96);
+            this.txtSrchPrmpt.TabIndex = 0;
+            this.txtSrchPrmpt.Text = "";
+            // 
+            // textSearchPromptLabel
+            // 
+            this.textSearchPromptLabel.AutoSize = true;
+            this.textSearchPromptLabel.Location = new System.Drawing.Point(27, 14);
+            this.textSearchPromptLabel.Name = "textSearchPromptLabel";
+            this.textSearchPromptLabel.Size = new System.Drawing.Size(149, 20);
+            this.textSearchPromptLabel.TabIndex = 1;
+            this.textSearchPromptLabel.Text = "Text Search Prompt";
+            // 
+            // naturalLanguageSearchBtn
+            // 
+            this.naturalLanguageSearchBtn.Location = new System.Drawing.Point(162, 136);
+            this.naturalLanguageSearchBtn.Name = "naturalLanguageSearchBtn";
+            this.naturalLanguageSearchBtn.Size = new System.Drawing.Size(189, 59);
+            this.naturalLanguageSearchBtn.TabIndex = 2;
+            this.naturalLanguageSearchBtn.Text = "Search";
+            this.naturalLanguageSearchBtn.UseVisualStyleBackColor = true;
+            this.naturalLanguageSearchBtn.Click += new System.EventHandler(this.naturalLanguageSearchBtn_Click);
+            // 
+            // dgvResults
+            // 
+            this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResults.Location = new System.Drawing.Point(12, 466);
+            this.dgvResults.Name = "dgvResults";
+            this.dgvResults.RowHeadersWidth = 62;
+            this.dgvResults.RowTemplate.Height = 28;
+            this.dgvResults.Size = new System.Drawing.Size(861, 223);
+            this.dgvResults.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 450);
+            this.ClientSize = new System.Drawing.Size(897, 837);
+            this.Controls.Add(this.dgvResults);
+            this.Controls.Add(this.textPromptPanel);
             this.Controls.Add(this.createXmlFileBtn);
             this.Controls.Add(this.createTxtFileBtn);
             this.Controls.Add(this.submitBtn);
@@ -219,6 +275,9 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.textPromptPanel.ResumeLayout(false);
+            this.textPromptPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -241,6 +300,11 @@
         private System.Windows.Forms.Button createTxtFileBtn;
         private System.Windows.Forms.Button createXmlFileBtn;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Panel textPromptPanel;
+        private System.Windows.Forms.RichTextBox txtSrchPrmpt;
+        private System.Windows.Forms.Label textSearchPromptLabel;
+        private System.Windows.Forms.Button naturalLanguageSearchBtn;
+        private System.Windows.Forms.DataGridView dgvResults;
     }
 }
 

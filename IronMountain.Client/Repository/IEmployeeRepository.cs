@@ -1,5 +1,6 @@
 ﻿using Iron_Mountain_Coding_Challenge.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Iron_Mountain_Coding_Challenge.Repository
 {
@@ -8,5 +9,6 @@ namespace Iron_Mountain_Coding_Challenge.Repository
         IEnumerable<Employee> GetAll();
         void Add(Employee employee);
         void Save();
+        IEnumerable<Employee> SearchByNlp(string query);
     }
 }

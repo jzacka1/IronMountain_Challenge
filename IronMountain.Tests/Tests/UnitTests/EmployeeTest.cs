@@ -14,7 +14,7 @@ namespace IronMountain.Tests.UnitTests
         [Test]
         public void ValidateEmployeeID_ShouldFail_WhenNotEightDigits()
         {
-            var emp = new Employee { EmployeeID = "00012345" };
+            var emp = new Employee { EmployeeID = "12345" };
             Assert.That(emp.EmployeeID.ToString().Length, Is.Not.EqualTo(8));
         }
 
