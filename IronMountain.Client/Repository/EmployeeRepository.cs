@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Threading.Tasks;
 
 namespace Iron_Mountain_Coding_Challenge.Repository
@@ -11,6 +12,8 @@ namespace Iron_Mountain_Coding_Challenge.Repository
     public class EmployeeRepository : IEmployeeRepository, IDisposable
     {
         private readonly EmployeeContext _context;
+        private readonly MemoryCache _cache = MemoryCache.Default;
+        private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(5);
 
         public EmployeeRepository(EmployeeContext context) {
             _context = context;
@@ -41,7 +44,19 @@ namespace Iron_Mountain_Coding_Challenge.Repository
 
         public async Task<IEnumerable<Employee>> SearchByNlp(dynamic filters)
         {
-            var query = _context.Employee.AsQueryable();
+            // Create a unique string key for this filter set
+            string cacheKey = $"nlp_{filters.AgeMin}_{filters.AgeMax}_{filters.NameContains}";
+
+            // Check cache first
+            if (_cache.Contains(cacheKey))
+            {
+                return (IEnumerable<Employee>)_cache.Get(cacheKey);
+            }
+
+            var query = _context
+                .Employee
+                .AsNoTracking()
+                .AsQueryable();
 
             if (filters.AgeMin != null)
             {
@@ -61,7 +76,13 @@ namespace Iron_Mountain_Coding_Challenge.Repository
                 query = query.Where(e => e.FirstName.Contains(name) || e.LastName.Contains(name));
             }
 
-            return await query.ToListAsync();
+            var result = await query.ToListAsync();
+
+            // Store in cache
+            _cache.Set(cacheKey, result, DateTimeOffset.Now.Add(_cacheDuration));
+
+            //return await query.ToListAsync();
+            return result;
         }
     }
 }
