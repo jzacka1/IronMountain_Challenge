@@ -9,6 +9,7 @@ using Iron_Mountain_Coding_Challenge.Utilities.Helpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -18,13 +19,15 @@ namespace Iron_Mountain_Coding_Challenge
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILoggingService _logger;
+        private Lazy<INlpClient> _nlpClient;
 
         public Form1(IEmployeeRepository employeeRepository,
-            ILoggingService logger)
+            ILoggingService logger, INlpClient nlpClient)
         {
             InitializeComponent();
             _employeeRepository = employeeRepository;
             _logger = logger;
+            _nlpClient = new Lazy<INlpClient>(() => nlpClient);
         }
 
         private void employeeIdTxtBox_KeyPress(object sender, KeyPressEventArgs e)

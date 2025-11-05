@@ -1,4 +1,5 @@
 ﻿using Iron_Mountain_Coding_Challenge.Repository;
+using Iron_Mountain_Coding_Challenge.Services;
 using Serilog;
 using System;
 using System.Windows.Forms;
@@ -26,6 +27,7 @@ namespace Iron_Mountain_Coding_Challenge
             var container = new UnityContainer();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
             container.RegisterType<ILoggingService, LoggingService>(TypeLifetime.Singleton);
+            container.RegisterType<INlpClient, NlpClient>();
             var mainForm = container.Resolve<Form1>();
 
             Application.Run(mainForm);
