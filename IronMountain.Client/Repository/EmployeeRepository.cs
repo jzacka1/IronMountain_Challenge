@@ -16,9 +16,9 @@ namespace Iron_Mountain_Coding_Challenge.Repository
             _context = context;
         }
 
-        public void Add(Employee employee)
+        public async Task AddAsync(Employee employee)
         {
-            _context.Employee.Add(employee);
+            await Task.Run(() => _context.Employee.Add(employee));
         }
 
         public void Dispose()
@@ -26,9 +26,12 @@ namespace Iron_Mountain_Coding_Challenge.Repository
             _context?.Dispose();
         }
 
-        public IEnumerable<Employee> GetAll()
+        public async Task<IEnumerable<Employee>> GetAllAsync()
         {
-            return _context.Employee.ToList();
+            return await _context
+                .Employee
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public void Save()

@@ -28,7 +28,7 @@ namespace IronMountain.Tests.UnitTests
             };
 
             _mockRepo = new Mock<IEmployeeRepository>();
-            _mockRepo.Setup(r => r.GetAll()).Returns(list);
+            _mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(list);
             //_mockRepo.Setup(r => r.SearchByNlp(It.IsAny<string>()))
             //    .ReturnsAsync(list);
         }
@@ -36,7 +36,7 @@ namespace IronMountain.Tests.UnitTests
         [Test]
         public void GetAll_ShouldReturnEmployees()
         {
-            var employees = _mockRepo.Object.GetAll();
+            var employees = _mockRepo.Object.GetAllAsync().Result;
             Assert.That(employees.Count(), Is.EqualTo(3));
             Assert.That(employees.First().FirstName, Is.EqualTo("Jim"));
         }

@@ -23,7 +23,7 @@ namespace IronMountain.Tests.IntegrationTests
         }
 
         [Test]
-        public void InsertEmployee_ShouldAddRecordToDatabase()
+        public async void InsertEmployee_ShouldAddRecordToDatabase()
         {
             using (var context = new EmployeeContext())
             {
@@ -35,17 +35,17 @@ namespace IronMountain.Tests.IntegrationTests
                     DOB = new System.DateTime(1988, 2, 12)
                 };
 
-                _repository.Add(emp);
+                await _repository.AddAsync(emp);
                 _repository.Save();
 
-                var result = _repository.GetAll().FirstOrDefault(e => e.EmployeeID == "00000001");
+                var result = _repository.GetAllAsync().Result.FirstOrDefault(e => e.EmployeeID == "00000001");
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.LastName, Is.EqualTo("Smith"));
             }
         }
 
         [Test]
-        public void ExportToText_ShouldCreatePipeDelimitedFile()
+        public async void ExportToText_ShouldCreatePipeDelimitedFile()
         {
             // Arrange
             var employee = new Employee
@@ -55,11 +55,11 @@ namespace IronMountain.Tests.IntegrationTests
                 LastName = "Johnson",
                 DOB = new System.DateTime(1989, 3, 10)
             };
-            _repository.Add(employee);
+            await _repository.AddAsync(employee);
             _repository.Save();
 
             // Act
-            TextFileDto textFileDto = TextExporter.ExportEmployeesToTextFile(_repository.GetAll().ToList());
+            TextFileDto textFileDto = TextExporter.ExportEmployeesToTextFile(_repository.GetAllAsync().Result.ToList());
 
             // Assert
             Assert.That(System.IO.File.Exists(textFileDto.TxtFilePath), Is.True);

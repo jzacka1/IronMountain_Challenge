@@ -6,8 +6,8 @@ namespace Iron_Mountain_Coding_Challenge.Repository
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAll();
-        void Add(Employee employee);
+        Task<IEnumerable<Employee>> GetAllAsync();
+        Task AddAsync(Employee employee);
         void Save();
         Task<IEnumerable<Employee>> SearchByNlp(dynamic filters);
     }

@@ -60,7 +60,7 @@ namespace Iron_Mountain_Coding_Challenge
             }
         }
 
-        private void submitBtn_Click(object sender, EventArgs e)
+        private async void submitBtn_Click(object sender, EventArgs e)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace Iron_Mountain_Coding_Challenge
                 };
 
                 // Add to repository
-                _employeeRepository.Add(employee);
+                await _employeeRepository.AddAsync(employee);
                 _employeeRepository.Save();
 
                 MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
@@ -127,11 +127,11 @@ namespace Iron_Mountain_Coding_Challenge
             }
         }
 
-        private void createTxtFileBtn_Click(object sender, EventArgs e)
+        private async void createTxtFileBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                var employees = new List<Employee>(_employeeRepository.GetAll());
+                var employees = new List<Employee>(await _employeeRepository.GetAllAsync());
 
                 if (employees.Count == 0)
                 {
@@ -156,11 +156,11 @@ namespace Iron_Mountain_Coding_Challenge
             }
         }
 
-        private void createXmlFileBtn_Click(object sender, EventArgs e)
+        private async void createXmlFileBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                var employees = _employeeRepository.GetAll();
+                var employees = await _employeeRepository.GetAllAsync();
 
                 if (employees == null)
                 {
