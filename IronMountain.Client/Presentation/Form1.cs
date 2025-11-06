@@ -72,11 +72,8 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (empTabCtrl.SelectedTab.Text == "Add Employee")
                 {
-                    bool flowControl = await AddEmployee();
-                    if (!flowControl)
-                    {
-                        return;
-                    }
+                    await AddEmployee();
+
                     MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
                     _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
                     ClearAddFields();
@@ -102,13 +99,12 @@ namespace Iron_Mountain_Coding_Challenge
             _employeeRepository.Save();
         }
 
-        private async Task<bool> AddEmployee()
+        private async Task AddEmployee()
         {
             if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
             {
-                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
                 _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
-                return false;
+                throw new Exception(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
             }
 
             // Reformat to 00000000
@@ -122,25 +118,28 @@ namespace Iron_Mountain_Coding_Challenge
 
             if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
             {
-                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
                 _logger.Error(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
-                return false;
+                throw new Exception(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
+            }
+
+            if (DobTxtBox.Text.Length < 8)
+            {
+                _logger.Error($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
+                throw new Exception(AppConfig.AppMessages.Messages.Errors.InvalidDateFormat);
             }
 
             bool isDateValid = DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dob);
 
             if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
             {
-                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBRequired);
                 _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBRequired);
-                return false;
+                throw new Exception(AppConfig.AppMessages.Messages.Errors.DOBRequired);
             }
 
             if (dob > DateTime.Today)
             {
-                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
                 _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
-                return false;
+                throw new Exception(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
             }
 
             var employee = new Employee
@@ -154,7 +153,6 @@ namespace Iron_Mountain_Coding_Challenge
             // Add to repository
             await _employeeRepository.AddAsync(employee);
             _employeeRepository.Save();
-            return true;
         }
 
         private async void createTxtFileBtn_Click(object sender, EventArgs e)
@@ -165,9 +163,8 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (employees.Count == 0)
                 {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                     _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
-                    return;
+                    throw new Exception(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                 }
 
                 //Create new text file
@@ -194,9 +191,8 @@ namespace Iron_Mountain_Coding_Challenge
 
                 if (employees == null)
                 {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                     _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
-                    return;
+                    throw new Exception(AppConfig.AppMessages.Messages.Errors.EmployeesNotFound);
                 }
 
                 string xmlPath = XmlExporter.ExportEmployeesToXml(new List<Employee>(employees));
@@ -213,15 +209,22 @@ namespace Iron_Mountain_Coding_Challenge
 
         private void DobTxtBox_Leave(object sender, EventArgs e)
         {
-            DateTime parsedDate;
-            if (!DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out parsedDate) &&
-                parsedDate <= DateTime.Today)
+            try
             {
-                MessageBox.Show($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
-                _logger.Error($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
+                DateTime parsedDate;
+                if (!DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out parsedDate) &&
+                    parsedDate <= DateTime.Today)
+                {
+                    _logger.Error($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
+                    throw new Exception(AppConfig.AppMessages.Messages.Errors.InvalidDateFormat);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+                _logger.Error($"{ex.Message}");
             }
         }
 
