@@ -19,9 +19,24 @@ namespace Iron_Mountain_Coding_Challenge.Repository
             _context = context;
         }
 
+        public async Task<Employee> FindAsync(string id)
+        {
+            return await Task.Run(() => _context.Employee.FindAsync(id));
+        }
+
         public async Task AddAsync(Employee employee)
         {
             await Task.Run(() => _context.Employee.Add(employee));
+        }
+
+        public async Task DeleteAsync(string id) 
+        {
+            var emp = await Task.Run(() => FindAsync(id));
+            if(emp == null)
+            {
+                throw new Exception("Employee doesn't exist");
+            }
+            await Task.Run(() => _context.Employee.Remove(emp));
         }
 
         public void Dispose()

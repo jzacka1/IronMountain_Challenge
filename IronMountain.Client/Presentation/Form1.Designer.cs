@@ -46,10 +46,16 @@
             this.createXmlFileBtn = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.textPromptPanel = new System.Windows.Forms.Panel();
-            this.txtSrchPrmpt = new System.Windows.Forms.RichTextBox();
-            this.textSearchPromptLabel = new System.Windows.Forms.Label();
             this.naturalLanguageSearchBtn = new System.Windows.Forms.Button();
+            this.textSearchPromptLabel = new System.Windows.Forms.Label();
+            this.txtSrchPrmpt = new System.Windows.Forms.RichTextBox();
             this.dgvResults = new System.Windows.Forms.DataGridView();
+            this.empTabCtrl = new System.Windows.Forms.TabControl();
+            this.addEmp = new System.Windows.Forms.TabPage();
+            this.delEmp = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.employeeIdDelTxt = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -57,6 +63,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.textPromptPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
+            this.empTabCtrl.SuspendLayout();
+            this.addEmp.SuspendLayout();
+            this.delEmp.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // employeeIdTxtBox
@@ -81,7 +91,7 @@
             // 
             this.panel1.Controls.Add(this.employeeLable);
             this.panel1.Controls.Add(this.employeeIdTxtBox);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(32, 8);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(462, 85);
             this.panel1.TabIndex = 2;
@@ -90,7 +100,7 @@
             // 
             this.panel2.Controls.Add(this.firstNameLabel);
             this.panel2.Controls.Add(this.firstNameTxtBox);
-            this.panel2.Location = new System.Drawing.Point(12, 125);
+            this.panel2.Location = new System.Drawing.Point(32, 121);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(462, 85);
             this.panel2.TabIndex = 3;
@@ -117,7 +127,7 @@
             // 
             this.panel3.Controls.Add(this.lastNameLabel);
             this.panel3.Controls.Add(this.lastNameTxtBox);
-            this.panel3.Location = new System.Drawing.Point(12, 238);
+            this.panel3.Location = new System.Drawing.Point(32, 234);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(462, 85);
             this.panel3.TabIndex = 4;
@@ -144,7 +154,7 @@
             // 
             this.panel4.Controls.Add(this.DobLabel);
             this.panel4.Controls.Add(this.DobTxtBox);
-            this.panel4.Location = new System.Drawing.Point(12, 351);
+            this.panel4.Location = new System.Drawing.Point(32, 347);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(462, 85);
             this.panel4.TabIndex = 5;
@@ -212,23 +222,6 @@
             this.textPromptPanel.Size = new System.Drawing.Size(354, 198);
             this.textPromptPanel.TabIndex = 9;
             // 
-            // txtSrchPrmpt
-            // 
-            this.txtSrchPrmpt.Location = new System.Drawing.Point(27, 39);
-            this.txtSrchPrmpt.Name = "txtSrchPrmpt";
-            this.txtSrchPrmpt.Size = new System.Drawing.Size(324, 96);
-            this.txtSrchPrmpt.TabIndex = 0;
-            this.txtSrchPrmpt.Text = "";
-            // 
-            // textSearchPromptLabel
-            // 
-            this.textSearchPromptLabel.AutoSize = true;
-            this.textSearchPromptLabel.Location = new System.Drawing.Point(27, 14);
-            this.textSearchPromptLabel.Name = "textSearchPromptLabel";
-            this.textSearchPromptLabel.Size = new System.Drawing.Size(149, 20);
-            this.textSearchPromptLabel.TabIndex = 1;
-            this.textSearchPromptLabel.Text = "Text Search Prompt";
-            // 
             // naturalLanguageSearchBtn
             // 
             this.naturalLanguageSearchBtn.Location = new System.Drawing.Point(162, 136);
@@ -239,30 +232,105 @@
             this.naturalLanguageSearchBtn.UseVisualStyleBackColor = true;
             this.naturalLanguageSearchBtn.Click += new System.EventHandler(this.naturalLanguageSearchBtn_Click);
             // 
+            // textSearchPromptLabel
+            // 
+            this.textSearchPromptLabel.AutoSize = true;
+            this.textSearchPromptLabel.Location = new System.Drawing.Point(27, 14);
+            this.textSearchPromptLabel.Name = "textSearchPromptLabel";
+            this.textSearchPromptLabel.Size = new System.Drawing.Size(149, 20);
+            this.textSearchPromptLabel.TabIndex = 1;
+            this.textSearchPromptLabel.Text = "Text Search Prompt";
+            // 
+            // txtSrchPrmpt
+            // 
+            this.txtSrchPrmpt.Location = new System.Drawing.Point(27, 39);
+            this.txtSrchPrmpt.Name = "txtSrchPrmpt";
+            this.txtSrchPrmpt.Size = new System.Drawing.Size(324, 96);
+            this.txtSrchPrmpt.TabIndex = 0;
+            this.txtSrchPrmpt.Text = "";
+            // 
             // dgvResults
             // 
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResults.Location = new System.Drawing.Point(12, 466);
+            this.dgvResults.Location = new System.Drawing.Point(12, 498);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.RowHeadersWidth = 62;
             this.dgvResults.RowTemplate.Height = 28;
             this.dgvResults.Size = new System.Drawing.Size(861, 223);
             this.dgvResults.TabIndex = 10;
             // 
+            // empTabCtrl
+            // 
+            this.empTabCtrl.Controls.Add(this.addEmp);
+            this.empTabCtrl.Controls.Add(this.delEmp);
+            this.empTabCtrl.Location = new System.Drawing.Point(12, 12);
+            this.empTabCtrl.Name = "empTabCtrl";
+            this.empTabCtrl.SelectedIndex = 0;
+            this.empTabCtrl.Size = new System.Drawing.Size(511, 480);
+            this.empTabCtrl.TabIndex = 11;
+            // 
+            // addEmp
+            // 
+            this.addEmp.Controls.Add(this.panel1);
+            this.addEmp.Controls.Add(this.panel2);
+            this.addEmp.Controls.Add(this.panel3);
+            this.addEmp.Controls.Add(this.panel4);
+            this.addEmp.Location = new System.Drawing.Point(4, 29);
+            this.addEmp.Name = "addEmp";
+            this.addEmp.Padding = new System.Windows.Forms.Padding(3);
+            this.addEmp.Size = new System.Drawing.Size(503, 447);
+            this.addEmp.TabIndex = 0;
+            this.addEmp.Text = "Add Employee";
+            this.addEmp.UseVisualStyleBackColor = true;
+            // 
+            // delEmp
+            // 
+            this.delEmp.Controls.Add(this.panel5);
+            this.delEmp.Location = new System.Drawing.Point(4, 29);
+            this.delEmp.Name = "delEmp";
+            this.delEmp.Padding = new System.Windows.Forms.Padding(3);
+            this.delEmp.Size = new System.Drawing.Size(503, 447);
+            this.delEmp.TabIndex = 1;
+            this.delEmp.Text = "Delete Employee";
+            this.delEmp.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.label1);
+            this.panel5.Controls.Add(this.employeeIdDelTxt);
+            this.panel5.Location = new System.Drawing.Point(20, 11);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(462, 85);
+            this.panel5.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Employee ID:";
+            // 
+            // employeeIdDelTxt
+            // 
+            this.employeeIdDelTxt.Location = new System.Drawing.Point(144, 17);
+            this.employeeIdDelTxt.MaxLength = 8;
+            this.employeeIdDelTxt.Name = "employeeIdDelTxt";
+            this.employeeIdDelTxt.Size = new System.Drawing.Size(296, 26);
+            this.employeeIdDelTxt.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 837);
+            this.ClientSize = new System.Drawing.Size(1123, 837);
+            this.Controls.Add(this.empTabCtrl);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.textPromptPanel);
             this.Controls.Add(this.createXmlFileBtn);
             this.Controls.Add(this.createTxtFileBtn);
             this.Controls.Add(this.submitBtn);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(919, 506);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -278,6 +346,11 @@
             this.textPromptPanel.ResumeLayout(false);
             this.textPromptPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
+            this.empTabCtrl.ResumeLayout(false);
+            this.addEmp.ResumeLayout(false);
+            this.delEmp.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -305,6 +378,12 @@
         private System.Windows.Forms.Label textSearchPromptLabel;
         private System.Windows.Forms.Button naturalLanguageSearchBtn;
         private System.Windows.Forms.DataGridView dgvResults;
+        private System.Windows.Forms.TabControl empTabCtrl;
+        private System.Windows.Forms.TabPage addEmp;
+        private System.Windows.Forms.TabPage delEmp;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox employeeIdDelTxt;
     }
 }
 

@@ -44,6 +44,32 @@ namespace IronMountain.Tests.IntegrationTests
             }
         }
 
+        public async void DeleteEmployee_ShouldRemoveRecordToDatabase()
+        {
+            using (var context = new EmployeeContext())
+            {
+                var emp = new Employee
+                {
+                    EmployeeID = "00000006",
+                    FirstName = "George",
+                    LastName = "Morane",
+                    DOB = new System.DateTime(1982, 9, 22)
+                };
+
+                await _repository.AddAsync(emp);
+                _repository.Save();
+
+                var result = _repository.GetAllAsync().Result.FirstOrDefault(e => e.EmployeeID == "00000006");
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.LastName, Is.EqualTo("Morane"));
+
+                await _repository.DeleteAsync(emp.EmployeeID);
+                _repository.Save();
+                result = _repository.GetAllAsync().Result.FirstOrDefault(e => e.EmployeeID == "00000006");
+                Assert.That(result, Is.Null);
+            }
+        }
+
         [Test]
         public async void ExportToText_ShouldCreatePipeDelimitedFile()
         {

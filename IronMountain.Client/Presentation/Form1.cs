@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Iron_Mountain_Coding_Challenge
 {
@@ -68,66 +69,92 @@ namespace Iron_Mountain_Coding_Challenge
             try
             {
                 this.ActiveControl = null;
-                if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
+
+                if (empTabCtrl.SelectedTab.Text == "Add Employee")
                 {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
-                    _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
-                    return;
+                    bool flowControl = await AddEmployee();
+                    if (!flowControl)
+                    {
+                        return;
+                    }
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
+                    _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
+                    ClearAddFields();
                 }
-
-                // Reformat to 00000000
-                if (employeeIdTxtBox.Text.Length < 8)
+                else if(empTabCtrl.SelectedTab.Text == "Delete Employee")
                 {
-                    int num = Convert.ToInt32(employeeIdTxtBox.Text);
-                    string id = num.ToString("00000000");
+                    await DeleteEmployee();
 
-                    employeeIdTxtBox.Text = id;
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeDeleted);
+                    _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeDeleted);
                 }
-
-                if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
-                {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
-                    _logger.Error(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
-                    return;
-                }
-
-                bool isDateValid = DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dob);
-
-                if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
-                {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBRequired);
-                    _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBRequired);
-                    return;
-                }
-
-                if(dob > DateTime.Today)
-                {
-                    MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
-                    _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
-                    return;
-                }
-
-                var employee = new Employee
-                {
-                    EmployeeID = employeeIdTxtBox.Text,
-                    FirstName = firstNameTxtBox.Text.Trim(),
-                    LastName = lastNameTxtBox.Text.Trim(),
-                    DOB = dob
-                };
-
-                // Add to repository
-                await _employeeRepository.AddAsync(employee);
-                _employeeRepository.Save();
-
-                MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
-                _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeSaved);
-                ClearFields();
 
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
                 Log.Error($"Error: {ex.Message}");
             }
+        }
+
+        private async Task DeleteEmployee()
+        {
+            await _employeeRepository.DeleteAsync(employeeIdDelTxt.Text);
+            _employeeRepository.Save();
+        }
+
+        private async Task<bool> AddEmployee()
+        {
+            if (employeeIdTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
+            {
+                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
+                _logger.Error(AppConfig.AppMessages.Messages.Errors.EmployeeIdRequired);
+                return false;
+            }
+
+            // Reformat to 00000000
+            if (employeeIdTxtBox.Text.Length < 8)
+            {
+                int num = Convert.ToInt32(employeeIdTxtBox.Text);
+                string id = num.ToString("00000000");
+
+                employeeIdTxtBox.Text = id;
+            }
+
+            if (lastNameTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(employeeIdTxtBox.Text))
+            {
+                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
+                _logger.Error(AppConfig.AppMessages.Messages.Errors.LastNameRequired);
+                return false;
+            }
+
+            bool isDateValid = DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dob);
+
+            if (DobTxtBox.Text == String.Empty && String.IsNullOrWhiteSpace(DobTxtBox.Text) && isDateValid)
+            {
+                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBRequired);
+                _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBRequired);
+                return false;
+            }
+
+            if (dob > DateTime.Today)
+            {
+                MessageBox.Show(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
+                _logger.Error(AppConfig.AppMessages.Messages.Errors.DOBGreaterThanToday);
+                return false;
+            }
+
+            var employee = new Employee
+            {
+                EmployeeID = employeeIdTxtBox.Text,
+                FirstName = firstNameTxtBox.Text.Trim(),
+                LastName = lastNameTxtBox.Text.Trim(),
+                DOB = dob
+            };
+
+            // Add to repository
+            await _employeeRepository.AddAsync(employee);
+            _employeeRepository.Save();
+            return true;
         }
 
         private async void createTxtFileBtn_Click(object sender, EventArgs e)
@@ -198,7 +225,7 @@ namespace Iron_Mountain_Coding_Challenge
             }
         }
 
-        private void ClearFields()
+        private void ClearAddFields()
         {
             employeeIdTxtBox.Clear();
             firstNameTxtBox.Clear();
