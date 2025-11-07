@@ -169,6 +169,7 @@
     <Compile Include="Repository\LoggingService.cs" />
     <Compile Include="Services\INlpClient.cs" />
     <Compile Include="Services\NlpClient.cs" />
+    <Compile Include="Utilities\DTO\EmployeeComboBoxDto.cs" />
     <Compile Include="Utilities\DTO\TextFileDto.cs" />
     <Compile Include="Utilities\DTO\ZipFileDto.cs" />
     <Compile Include="Utilities\Helpers\AppConfig.cs" />

@@ -13,6 +13,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Iron_Mountain_Coding_Challenge
 {
@@ -21,6 +22,7 @@ namespace Iron_Mountain_Coding_Challenge
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILoggingService _logger;
         private Lazy<INlpClient> _nlpClient;
+        private Employee selectedEmployee;
 
         public Form1(IEmployeeRepository employeeRepository,
             ILoggingService logger, INlpClient nlpClient)
@@ -84,6 +86,14 @@ namespace Iron_Mountain_Coding_Challenge
 
                     MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeDeleted);
                     _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeDeleted);
+                    ClearDeleteFields();
+                }
+                else if(empTabCtrl.SelectedTab.Text == "Update Employee")
+                {
+                    await UpdateEmployee();
+
+                    MessageBox.Show(AppConfig.AppMessages.Messages.Info.EmployeeUpdated);
+                    _logger.Info(AppConfig.AppMessages.Messages.Info.EmployeeUpdated);
                 }
 
             }
@@ -91,6 +101,14 @@ namespace Iron_Mountain_Coding_Challenge
                 MessageBox.Show($"Error: {ex.Message}");
                 Log.Error($"Error: {ex.Message}");
             }
+        }
+
+        private async Task UpdateEmployee()
+        {
+            selectedEmployee.FirstName = updateFrstNamTxtbx.Text;
+            selectedEmployee.LastName = updateLstNamTxtbx.Text;
+            await _employeeRepository.UpdateAsync(selectedEmployee);
+            _employeeRepository.Save();
         }
 
         private async Task DeleteEmployee()
@@ -207,33 +225,18 @@ namespace Iron_Mountain_Coding_Challenge
             }
         }
 
-        private void DobTxtBox_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                DateTime parsedDate;
-                if (!DateTime.TryParseExact(DobTxtBox.Text, "MMddyyyy",
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.None,
-                    out parsedDate) &&
-                    parsedDate <= DateTime.Today)
-                {
-                    _logger.Error($"{AppConfig.AppMessages.Messages.Errors.InvalidDateFormat}");
-                    throw new Exception(AppConfig.AppMessages.Messages.Errors.InvalidDateFormat);
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show($"{ex.Message}");
-                _logger.Error($"{ex.Message}");
-            }
-        }
-
         private void ClearAddFields()
         {
             employeeIdTxtBox.Clear();
             firstNameTxtBox.Clear();
             lastNameTxtBox.Clear();
             DobTxtBox.Clear();
+        }
+
+        private void ClearDeleteFields()
+        {
+            updateFrstNamTxtbx.Clear();
+            updateLstNamTxtbx.Clear();
         }
 
         private void Form1_Click(object sender, EventArgs e)
@@ -250,6 +253,25 @@ namespace Iron_Mountain_Coding_Challenge
             var results = await _employeeRepository.SearchByNlp(filters);
 
             dgvResults.DataSource = results;
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            //Add items to combobox control inside update tab
+            var employees = await _employeeRepository.GetAllAsync();
+            var datasource = employees.Select(a => new EmployeeComboBoxDto { 
+                    ID = a.EmployeeID, 
+                    FullName = $"{a.FirstName} {a.LastName}"}).ToList();
+            employeeComboBox.DataSource = datasource;
+        }
+
+        private async void employeeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = ((ListControl)sender).SelectedValue.ToString();
+            selectedEmployee = await _employeeRepository.FindAsync(id);
+
+            updateFrstNamTxtbx.Text = selectedEmployee.FirstName;
+            updateLstNamTxtbx.Text = selectedEmployee.LastName;
         }
     }
 }

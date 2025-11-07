@@ -51,11 +51,21 @@
             this.txtSrchPrmpt = new System.Windows.Forms.RichTextBox();
             this.dgvResults = new System.Windows.Forms.DataGridView();
             this.empTabCtrl = new System.Windows.Forms.TabControl();
-            this.addEmp = new System.Windows.Forms.TabPage();
-            this.delEmp = new System.Windows.Forms.TabPage();
+            this.addEmpTab = new System.Windows.Forms.TabPage();
+            this.delEmpTab = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.employeeIdDelTxt = new System.Windows.Forms.TextBox();
+            this.updateEmpTab = new System.Windows.Forms.TabPage();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.updateFrstNamTxtbx = new System.Windows.Forms.TextBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.updateLstNamTxtbx = new System.Windows.Forms.TextBox();
+            this.employeeComboBox = new System.Windows.Forms.ComboBox();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -64,9 +74,13 @@
             this.textPromptPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.empTabCtrl.SuspendLayout();
-            this.addEmp.SuspendLayout();
-            this.delEmp.SuspendLayout();
+            this.addEmpTab.SuspendLayout();
+            this.delEmpTab.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.updateEmpTab.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // employeeIdTxtBox
@@ -158,7 +172,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(462, 85);
             this.panel4.TabIndex = 5;
-            this.panel4.Leave += new System.EventHandler(this.DobTxtBox_Leave);
             // 
             // DobLabel
             // 
@@ -261,38 +274,39 @@
             // 
             // empTabCtrl
             // 
-            this.empTabCtrl.Controls.Add(this.addEmp);
-            this.empTabCtrl.Controls.Add(this.delEmp);
+            this.empTabCtrl.Controls.Add(this.addEmpTab);
+            this.empTabCtrl.Controls.Add(this.delEmpTab);
+            this.empTabCtrl.Controls.Add(this.updateEmpTab);
             this.empTabCtrl.Location = new System.Drawing.Point(12, 12);
             this.empTabCtrl.Name = "empTabCtrl";
             this.empTabCtrl.SelectedIndex = 0;
             this.empTabCtrl.Size = new System.Drawing.Size(511, 480);
             this.empTabCtrl.TabIndex = 11;
             // 
-            // addEmp
+            // addEmpTab
             // 
-            this.addEmp.Controls.Add(this.panel1);
-            this.addEmp.Controls.Add(this.panel2);
-            this.addEmp.Controls.Add(this.panel3);
-            this.addEmp.Controls.Add(this.panel4);
-            this.addEmp.Location = new System.Drawing.Point(4, 29);
-            this.addEmp.Name = "addEmp";
-            this.addEmp.Padding = new System.Windows.Forms.Padding(3);
-            this.addEmp.Size = new System.Drawing.Size(503, 447);
-            this.addEmp.TabIndex = 0;
-            this.addEmp.Text = "Add Employee";
-            this.addEmp.UseVisualStyleBackColor = true;
+            this.addEmpTab.Controls.Add(this.panel1);
+            this.addEmpTab.Controls.Add(this.panel2);
+            this.addEmpTab.Controls.Add(this.panel3);
+            this.addEmpTab.Controls.Add(this.panel4);
+            this.addEmpTab.Location = new System.Drawing.Point(4, 29);
+            this.addEmpTab.Name = "addEmpTab";
+            this.addEmpTab.Padding = new System.Windows.Forms.Padding(3);
+            this.addEmpTab.Size = new System.Drawing.Size(503, 447);
+            this.addEmpTab.TabIndex = 0;
+            this.addEmpTab.Text = "Add Employee";
+            this.addEmpTab.UseVisualStyleBackColor = true;
             // 
-            // delEmp
+            // delEmpTab
             // 
-            this.delEmp.Controls.Add(this.panel5);
-            this.delEmp.Location = new System.Drawing.Point(4, 29);
-            this.delEmp.Name = "delEmp";
-            this.delEmp.Padding = new System.Windows.Forms.Padding(3);
-            this.delEmp.Size = new System.Drawing.Size(503, 447);
-            this.delEmp.TabIndex = 1;
-            this.delEmp.Text = "Delete Employee";
-            this.delEmp.UseVisualStyleBackColor = true;
+            this.delEmpTab.Controls.Add(this.panel5);
+            this.delEmpTab.Location = new System.Drawing.Point(4, 29);
+            this.delEmpTab.Name = "delEmpTab";
+            this.delEmpTab.Padding = new System.Windows.Forms.Padding(3);
+            this.delEmpTab.Size = new System.Drawing.Size(503, 447);
+            this.delEmpTab.TabIndex = 1;
+            this.delEmpTab.Text = "Delete Employee";
+            this.delEmpTab.UseVisualStyleBackColor = true;
             // 
             // panel5
             // 
@@ -320,6 +334,99 @@
             this.employeeIdDelTxt.Size = new System.Drawing.Size(296, 26);
             this.employeeIdDelTxt.TabIndex = 0;
             // 
+            // updateEmpTab
+            // 
+            this.updateEmpTab.Controls.Add(this.panel10);
+            this.updateEmpTab.Controls.Add(this.panel7);
+            this.updateEmpTab.Controls.Add(this.panel8);
+            this.updateEmpTab.Location = new System.Drawing.Point(4, 29);
+            this.updateEmpTab.Name = "updateEmpTab";
+            this.updateEmpTab.Size = new System.Drawing.Size(503, 447);
+            this.updateEmpTab.TabIndex = 2;
+            this.updateEmpTab.Text = "Update Employee";
+            this.updateEmpTab.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.label3);
+            this.panel7.Controls.Add(this.updateFrstNamTxtbx);
+            this.panel7.Location = new System.Drawing.Point(20, 197);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(462, 47);
+            this.panel7.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(23, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "First Name:";
+            // 
+            // updateFrstNamTxtbx
+            // 
+            this.updateFrstNamTxtbx.Location = new System.Drawing.Point(144, 8);
+            this.updateFrstNamTxtbx.MaxLength = 30;
+            this.updateFrstNamTxtbx.Name = "updateFrstNamTxtbx";
+            this.updateFrstNamTxtbx.Size = new System.Drawing.Size(296, 26);
+            this.updateFrstNamTxtbx.TabIndex = 0;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.label4);
+            this.panel8.Controls.Add(this.updateLstNamTxtbx);
+            this.panel8.Location = new System.Drawing.Point(20, 250);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(462, 47);
+            this.panel8.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(90, 20);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Last Name:";
+            // 
+            // updateLstNamTxtbx
+            // 
+            this.updateLstNamTxtbx.Location = new System.Drawing.Point(144, 7);
+            this.updateLstNamTxtbx.MaxLength = 30;
+            this.updateLstNamTxtbx.Name = "updateLstNamTxtbx";
+            this.updateLstNamTxtbx.Size = new System.Drawing.Size(296, 26);
+            this.updateLstNamTxtbx.TabIndex = 0;
+            // 
+            // employeeComboBox
+            // 
+            this.employeeComboBox.DisplayMember = "FullName";
+            this.employeeComboBox.FormattingEnabled = true;
+            this.employeeComboBox.Location = new System.Drawing.Point(18, 40);
+            this.employeeComboBox.Name = "employeeComboBox";
+            this.employeeComboBox.Size = new System.Drawing.Size(422, 28);
+            this.employeeComboBox.TabIndex = 10;
+            this.employeeComboBox.ValueMember = "ID";
+            this.employeeComboBox.SelectedIndexChanged += new System.EventHandler(this.employeeComboBox_SelectedIndexChanged);
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.label6);
+            this.panel10.Controls.Add(this.employeeComboBox);
+            this.panel10.Location = new System.Drawing.Point(20, 63);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(462, 100);
+            this.panel10.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(200, 20);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Select Employee to update";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -334,6 +441,7 @@
             this.MinimumSize = new System.Drawing.Size(919, 506);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -347,10 +455,17 @@
             this.textPromptPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.empTabCtrl.ResumeLayout(false);
-            this.addEmp.ResumeLayout(false);
-            this.delEmp.ResumeLayout(false);
+            this.addEmpTab.ResumeLayout(false);
+            this.delEmpTab.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.updateEmpTab.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -379,11 +494,21 @@
         private System.Windows.Forms.Button naturalLanguageSearchBtn;
         private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.TabControl empTabCtrl;
-        private System.Windows.Forms.TabPage addEmp;
-        private System.Windows.Forms.TabPage delEmp;
+        private System.Windows.Forms.TabPage addEmpTab;
+        private System.Windows.Forms.TabPage delEmpTab;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox employeeIdDelTxt;
+        private System.Windows.Forms.TabPage updateEmpTab;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox updateFrstNamTxtbx;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox updateLstNamTxtbx;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox employeeComboBox;
     }
 }
 

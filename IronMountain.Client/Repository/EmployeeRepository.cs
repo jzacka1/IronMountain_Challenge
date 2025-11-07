@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using Iron_Mountain_Coding_Challenge.Models;
+using NMemory.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -27,6 +28,11 @@ namespace Iron_Mountain_Coding_Challenge.Repository
         public async Task AddAsync(Employee employee)
         {
             await Task.Run(() => _context.Employee.Add(employee));
+        }
+
+        public async Task UpdateAsync(Employee employee)
+        {
+            await Task.Run(() => _context.Entry(employee).State = EntityState.Modified);
         }
 
         public async Task DeleteAsync(string id) 

@@ -36,6 +36,7 @@ namespace Iron_Mountain_Coding_Challenge.Models
     {
         public string EmployeeDeleted { get; set; }
         public string EmployeeSaved { get; set; }
+        public string EmployeeUpdated { get; set; }
         public string EmployeesNotFound { get; set; }
         public string ExportComplete { get; set; }
         public string TextFileExported { get; set; }

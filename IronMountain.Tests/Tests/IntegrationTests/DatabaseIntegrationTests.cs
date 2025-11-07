@@ -70,6 +70,34 @@ namespace IronMountain.Tests.IntegrationTests
             }
         }
 
+        public async void UpdateEmployee_ShouldUpdateRecordInDatabase()
+        {
+            using (var context = new EmployeeContext())
+            {
+                var emp = new Employee
+                {
+                    EmployeeID = "00000012",
+                    FirstName = "Ash",
+                    LastName = "Williams",
+                    DOB = new System.DateTime(1982, 9, 22)
+                };
+
+                await _repository.AddAsync(emp);
+                _repository.Save();
+
+                var result = _repository.GetAllAsync().Result.FirstOrDefault(e => e.EmployeeID == "00000012");
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.LastName, Is.EqualTo("Williams"));
+
+                emp.LastName = "Ketchum";
+
+                await _repository.UpdateAsync(emp);
+                _repository.Save();
+                result = _repository.GetAllAsync().Result.FirstOrDefault(e => e.EmployeeID == "00000012");
+                Assert.That(result.LastName, Is.EqualTo("Ketchum"));
+            }
+        }
+
         [Test]
         public async void ExportToText_ShouldCreatePipeDelimitedFile()
         {
